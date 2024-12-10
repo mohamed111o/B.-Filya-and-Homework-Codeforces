@@ -1,0 +1,83 @@
+#include<iostream>
+#include <algorithm>
+#include <utility> // f
+#include<string>
+#include<fstream>
+#include<cmath>
+#include<vector>
+#include<map>
+using namespace std;
+class EqualArray {
+	int Size;
+	int* arr; //Dynamic 
+	int Max = -1;
+	int Before = -1;
+
+
+public:
+	 // chek if Elements in Array Equal or no
+	bool ElementsEqual() {
+		int x = arr[0];
+		for (int i = 1; i < Size; i++) {
+			if (x != arr[i])
+				return false;
+		}
+		return true;
+	}
+	 // Read
+	void Read() {
+		cin >> Size;
+		arr = new int[Size];
+		for (int i = 0; i < Size; i++) {
+			cin >> arr[i];
+			if (arr[i] > Max) {
+				Max = arr[i];
+			}
+		}
+	}
+	  
+	void BeforeMax() {
+
+
+		sort(arr, arr + Size);
+		for (int i = Size - 1; i >= 0; i--) {
+			if (arr[i] != Max) {
+				Before = arr[i];
+				break;
+			}
+		}
+	}
+	// The Process 
+	void Implementation() {
+		int detal = Max - Before;
+
+		for (int i = 0; i < Size; i++) {
+			if (arr[i] != Max && arr[i] != Before) {
+				arr[i] += detal;
+			}
+			else if (arr[i] == Max)arr[i] -= detal;
+			
+		}
+
+		
+
+		if (ElementsEqual()) cout << "YES" << endl;
+		else cout << "NO";
+
+	}
+};
+void Print() {
+
+	EqualArray A;
+	A.Read();
+	A.BeforeMax();
+	A.Implementation();
+
+
+}
+int main()
+{
+	Print();
+
+	return 0;
+}
